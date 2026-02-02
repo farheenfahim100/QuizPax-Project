@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Registration: QuizPax</title>
+        <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">
+        <script src='/static/js/jquery-3.7.1.min.js'></script>
+        <script src='/static/js/registration.js' defer></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+    </head>
+    <body>
+
+            {% include 'navbar.html' %} 
+
+            <main id="main-content">
+                <section class="page-header">
+                    <h1>Account Registration</h1>
+                </section>
+                <section class="page-body">
+                <div class="form-box" id="form-box">
+                    <form action="/registration" method ='post' id="registration-form">
+                        
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" id="name" autocomplete="given-name" required>
+
+                        <label for="teacherorstudent">Role:</label>
+                        <select id="teacherorstudent" name="teacherorstudent" class="styled-select" required>
+                            <option value="" disabled selected>Select your role</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                        </select>
+
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" autocomplete="email" required>
+
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" autocomplete="new-password" required>
+
+                        <button type="submit" class="primary-btn" id="Register">Register</button>
+                    </form>
+                    <div id="OTP-wrapper">
+                        <div id="One-time-passcode"></div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                </section>
+            </main>
+        {% include 'footer.html' %} 
+    </body>
+</html>
+ 

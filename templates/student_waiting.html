@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Waiting Room: QuizPax</title>
+    <script src="/static/js/socket.io.min.js"></script>
+
+    <script src="/static/js/studentwaiting.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+
+    <link rel="stylesheet" href="/static/css/newlayout.css">
+</head>
+<body>
+
+
+{% include 'navbar.html' %}
+<main id="main-content">
+    
+    <section class="page-header safe-horizontal compact-spacing">
+        <p class="page-kicker">Waiting Room</p>
+        <h1>Get Ready!</h1>
+        <p class="page-subtitle">Your teacher will start the game shortly</p>
+
+
+        <p>Waiting for your teacher to start the game...</p>
+        
+        <div class="dashboard-card tight-text">
+            <p style="font-size: 22px; margin-bottom: 6px;">Game PIN</p>
+            <p id="waiting-pin"
+               style="font-size: 48px; font-weight: 600; letter-spacing: 0.15em;">
+                {{ pin }}
+            </p>
+        </div>
+    </section>
+
+     <!-- STATUS -->
+    <section class="dashboard-folders safe-horizontal compact-spacing">
+        <div class="dashboard-card tight-text">
+            <p>Status</p>
+
+        <p id="status"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            style="font-size: 30px; font-weight: 500;">
+            Waiting for teacher to start the game…
+        </p>
+        
+        <!-- COUNTDOWN -->
+        <div id="student-countdown" class="coutndown-box" role="status" aria-live="assertive" aria-atomic="true" hidden>
+            <p>Game starting in:</p>
+            <div id="student-countdown-number" class="countdown-number">
+            </div>
+
+        </div>
+
+    </section>
+    
+
+</main>
+</body>
+</html>

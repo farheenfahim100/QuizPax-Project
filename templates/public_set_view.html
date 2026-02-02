@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/newlayout.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/create_public_set_game.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+    <title>{{ qset.name }} – Public Set: QuizPax</title>
+</head>
+<body>
+<div id="page-content">
+{% include 'navbar.html' %}
+<main id="main-content">
+    <section class="page-header">
+        <p class="page-kicker">You’re viewing a public Q&A set</p>
+        <em><h1>{{ qset.name }}</h1></em>
+        <div class="breadcrumb">
+            <a href="/public_sets" class="breadcrumb-link">Public Sets</a>
+            <span class="breadcrumb-sep">›</span>
+            <span class="breadcrumb-current">{{ qset.name }}</span>
+        </div>
+    </section>
+
+    <section class="dashboard-folders">
+        <p class="section-label">Questions</p>
+        {% for q in questions %}
+            <div class="dashboard-card">
+                <div class="question-header">
+                    <span class="question-label">Question {{ loop.index }}</span>
+                </div>
+                <div class="question-title">
+                    <h3>{{ q.question }}</h3>
+                </div>
+                <p class="answer-text">
+                    <strong>Answer:</strong> {{ q.answer }}
+                </p>
+
+                <p class="fake-text">
+                    <strong>Fake Answers:</strong>
+                    {{ q.fakeans1 }}, {{ q.fakeans2 }}, {{ q.fakeans3 }}
+                </p>
+            </div>
+        {% endfor %}
+    </section>
+    {% if questions|length >= 3 %}
+        <div class="action-row" style="margin: 64px 0;">
+            <button id="use-public-set-btn" class="primary-btn" data-setid="{{ qset.id }}">Use Set For Live Game</button>
+        </div>
+    {% endif %}
+    </main>
+    {% include 'footer.html' %}
+</div>
+
+        
+    <div id="game-modal-overlay" class="modal-overlay"></div>
+        <div id="game-modal" class="modal" inert>
+            <div class="modal-header">
+                <h2>Create Game</h2>
+                <button id="close-game-modal" class="close-btn" aria-label="Close">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p><strong>Question Set:</strong> {{ qset.name }}</p>
+                
+                <fieldset>
+                    <legend>Select Game Mode</legend>
+                    <div class="game-option">
+                        <input type="radio" id="mode-classic" name="gamemode" value="classic" checked>
+                        <label for="mode-classic">Classic Solo</label>
+                    </div>
+                    <div class="game-option">
+                        <input type="radio" id="mode-multi" name="gamemode" value="classic_multi">
+                        <label for="mode-multi">Classic Multiplayer</label>
+                    </div>
+                    <div class="game-option">
+                        <input type="radio" id="mode-bomb" name="gamemode" value="bomb">
+                        <label for="mode-bomb">Bomb Squad</label>
+                    </div>
+                </fieldset>
+
+                <label for="game-length">Game length in minutes</label>
+                <input type="number" id="game-length" min="1" max="5" value="1">
+            </div>
+            
+            <div class="modal-footer">
+                <button id="game-create-submit" class="primary-btn" aria-label="Create Game">Create Game</button>
+            </div>
+        </div>
+
+
+</body>
+</html>

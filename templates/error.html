@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+        <title>Error: QuizPax</title>
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+        <main id="main-content">
+            <section class="page-header">
+                <h1>We're sorry, something went wrong</h1>
+            </section>
+
+            <section>
+                <div class="form-box" role="alert" aria-live="assertive" style="border: 2px ridge red">
+                    <h2 style = "text-align: center">Error:</h2>
+                    <p style="font-size: 26px; line-height: 1.6; text-align: center;">{{ errorMessage }}</p>
+
+                    <a href="/" class="primary-btn">
+                        Back to Home
+                    </a>
+
+                </div>
+                <br>
+                <br>
+            </section>
+
+        </main>
+        {% include 'footer.html' %} 
+    </body>
+</html>    

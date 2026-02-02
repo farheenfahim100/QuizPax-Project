@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/editset.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+    <title>Q&A sets in {{ folder.name }}: QuizPax</title>
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+<main id="main-content">
+
+    <section class="page-header">
+        <p class="page-kicker">You’re viewing Q&A sets in</p>
+        <em><h1>{{ folder.name }}</h1></em>
+        <div class="breadcrumb">
+        <a href="/dashboard" class="breadcrumb-link">Dashboard</a>
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+        <span class="breadcrumb-current">{{ folder.name }}</span>
+    </div>
+    </section>
+
+    <section class="dashboard-folders">
+        <p class="section-label">Your Q&A Sets</p>
+        <p class="page-subtitle"> Your Q&A Sets are listed below. Each Q&A set can contain multiple questions. Click "View Questions" to view the questions within a specific set. The option to add a new Q&A Set is located at the bottom of the page.</p>
+        {% for set in sets %}
+            <div class="dashboard-card" id="set-card-{{ set.id }}">
+                <div class="card-title">{{ set.name }}</div>
+                <div class="set-privacy">{{ "Private" if set.is_private else "Public" }}</div>
+                <input type="hidden" id="set-name-{{ set.id }}" value="{{ set.name }}">
+                <input type="hidden" id="set-private-{{ set.id }}" value="{{ 1 if set.is_private else 0 }}">
+                
+                <div class="action-row">
+
+                    <!-- View/Open -->
+                    <form action="/qsetdetails" method="GET">
+                        <button class="secondary-btn view-btn" name="setid" value="{{ set.id }}" >View Questions</button>
+                    </form>
+
+                    <!-- Edit -->
+                    <button class="secondary-btn edit-set-btn" value="{{ set.id }}">Edit Q&A Set Name</button>
+
+                    <!-- Delete -->
+                    <form action="/deleteset" method="POST" class="delete-set-form">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <input type="hidden" name="setid" value="{{ set.id }}">
+                        <button class="secondary-btn delete-btn" >Delete Q&A Set</button>
+                    </form>
+
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+        <section class="dashboard-actions">
+        <div class="dashboard-card">
+            <h3>Create a new Q&A Set:</h3>
+            
+            <form action="/addset" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <input type="hidden" name="folderid" value="{{ folder.id }}">
+                
+                <label for="set-name">Set name</label>
+                <input type="text" name="setname" id="set-name" placeholder="e.g. Photosynthesis" required>
+                <label class="checkbox-row">
+                    <input type="checkbox" id="set-private" name="is_private">
+                    <span>Private</span>
+                </label>
+
+                <!-- Actions row -->
+                <div class="action-row">
+                    <button class="secondary-btn" type="submit">Add Set</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div style="text-align:center; margin: 48px 0;">
+        <a href="/dashboard" class="primary-btn has-arrow"><span class="arrow" aria-hidden="true">←</span> Back to Folders List</a>
+    </div>
+
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</body>
+</html>

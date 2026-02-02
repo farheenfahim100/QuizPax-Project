@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Game Lobby: QuizPax</title>
+    <script src="/static/js/socket.io.min.js"></script>
+    <script src="/static/js/gamelobby.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/newlayout.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet"> 
+
+</head>
+<body>
+
+{% include 'navbar.html' %}
+<main id="main-content">
+    <section class="page-header safe-horizontal">
+        <p class="page-kicker">Game Lobby</p>
+        <h1>Waiting for Players</h1>
+
+        <p class="page-subtitle">
+            Share this game pin with students
+        </p>
+
+        <div class="dashboard-card">
+            <p style="font-size: 22px; margin-bottom: 6px;">Game PIN</p>
+            <p id="game-pin"
+               style="font-size: 48px; font-weight: 600; letter-spacing: 0.15em;">
+                {{ game.game_pin }}
+            </p>
+        </div>
+    </section>
+
+    <!-- LOBBY CONTENT -->
+    <section class="dashboard-folders safe-horizontal">
+
+        <div class="dashboard-card">
+
+            <p id="player-count" role="status" aria-live="polite" aria-atomic="true" class="page-subtitle">
+                Players connected: {{ players|length }}
+            </p>
+
+            <p class="section-label"> Players list: </p>
+            <ul id="player-list"
+                aria-live="polite"
+                aria-relevant="additions removals"
+                style="list-style: none; padding: 0; margin: 32px 0;">
+
+                {% for p, connected in players %}
+                    <li class="player"
+                        data-student-id="{{ p.id }}"
+                        style="font-size: 40px; margin-bottom: 10px;">
+                        {{ p.name }}
+                    </li>
+                    <br>
+                {% endfor %}
+            </ul>
+
+        {% if game.gamemode == "classic_multi" or game.gamemode == "bomb" %}
+            <div id="team-select-container" class="hidden">
+                <label for="team-count-select">Number of teams:</label>
+                <select id="team-count-select"></select>
+            </div>
+        {% endif %}
+
+        <div class="action-row">
+            <button id="start-game-button" class="primary-btn">Start Game</button>
+            <button id="cancel-game-button" class="secondary-btn delete-btn">Cancel Game</button>
+        </div>
+        
+        <div id="countdown" class="countdown-box" role="status" aria-live="assertive" aria-atomic="true" hidden>
+            <p>Game starting in:</p>
+            <div class="countdown-number"></div>
+        </div>
+
+        
+
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

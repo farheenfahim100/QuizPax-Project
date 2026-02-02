@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
+    <script src="/static/js/jquery-3.7.1.min.js"></script>
+    <script src="/static/js/socket.io.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/js/play_game.js" defer></script>
+    <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Live Game: QuizPax</title>
+</head>
+
+<body class="playgame-body">
+
+<main class="playgame-screen" id="main-content">
+
+
+    <header class="playgame-top">
+        <!-- TEACHER STATUS -->
+        <div id="teacher-status" class="playgame-status" role="status" aria-live="polite"></div>
+
+        <!-- QUESTION -->
+        <div id="question-box" class="playgame-question" role="status" aria-live="assertive" aria-atomic="true">
+            Loading question...
+        </div>
+
+        <!-- SCORE -->
+        <div id="score-header" class="playgame-score" role="status" aria-live="polite">
+            Score: <span id="current-score">0</span>
+        </div>
+
+        <!-- FLAG -->
+        <button id="flag-question-btn" class="playgame-flag-btn" aria-label="Flag question to teacher" aria-live="polite">Flag question to teacher</button>
+    </header>
+
+    <!-- ANSWERS -->
+    <section id="choices-box" class="playgame-answers">
+        <button class="choice-btn" id="choice1"></button>
+        <button class="choice-btn" id="choice2"></button>
+        <button class="choice-btn" id="choice3"></button>
+        <button class="choice-btn" id="choice4"></button>
+    </section>
+
+    <!-- FEEDBACK -->
+    <div id="feedback" class="playgame-feedback" role="status" aria-live="assertive" aria-atomic="true"></div>
+    <div id="feedback-overlay" class="feedback-overlay hidden" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="feedback-text" class="feedback-box"></div>
+    </div>
+
+    <!-- Hidden data -->
+    <div id="game-pin" class="hidden">{{ pin }}</div>
+    <div id="student-id" class="hidden">{{ current_user.id }}</div>
+
+
+</body>
+</html>

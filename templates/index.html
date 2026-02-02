@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home: QuizPax</title>
+        <!-- <link rel="stylesheet" href="/static/css/layout.css" type="text/css"> -->
+        <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/static/js/revealcards.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+    <body>
+        {% include 'navbar.html' %}
+        <main id="main-content">
+        <div class="nav-hero-spacer"></div>
+        <!-- Hero Section -->
+        <section class="hero">
+        <h1>
+            QuizPax is a <em>gamified student response system</em> designed
+            to benefit both <em>students and teachers.</em>
+        </h1>
+
+            <a href="/registration" class="primary-btn has-arrow"><span class="label">Sign Up Now</span><span class="arrow">→</span></a>
+        </section>
+
+        <!-- Detail Section -->
+        <section class="details">
+            <h2 class="section-label">Core functionality</h2>
+            <div class="details-inner">
+                <h2>Teacher Alerts</h2>
+                <p>
+                    Teachers receive real-time alerts for specific questions when the accuracy rate drops below 40%, 
+                    allowing teachers to understand where students are struggling.
+                </p>
+            </div>
+            <br>
+            <div class="details-inner">
+                <h2>Student Flags</h2>
+                <p>
+                    Students can flag questions they find confusing without disrupting gameplay and immediately notifying the teacher.
+                </p>
+            </div>
+            <br>
+            <div class="details-inner">
+                <h2>Student Autonomy</h2>
+                <p>
+                    Students answer questions independently and at their own pace,
+                    supporting autonomy and reducing performance pressure.
+                </p>
+            </div>
+            <br>
+        </section>
+        </main>
+        {% include 'footer.html' %}
+
+    </body>
+</html>
+
+
+<!-- In the coursework directory, run ./setup.sh --port 54455 command first then run.sh coursework to run the server-->
+<!--http://localhost:59238/,--> 

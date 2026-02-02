@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Accolades: QuizPax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/newlayout.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+{% include "navbar.html" %}
+
+<main id="main-content">
+
+    <header class="page-header">
+        <h1>My Accolades</h1>
+    </header>
+
+    <!-- PODIUM BADGES -->
+    <section class="badge-section">
+        <h2 class="section-label">Podium Badges</h2>
+
+        <div class="badge-row">
+            <div class="badge-card">
+                <h3>Gold</h3>
+                <img src="/static/images/gold.png" alt="Gold medal badge">
+                <p>Count: {{ student.gold_medals }}</p>
+            </div>
+
+            <div class="badge-card">
+                <h3>Silver</h3>
+                <img src="/static/images/silver.png" alt="Silver medal badge">
+                <p>Count: {{ student.silver_medals }}</p>
+            </div>
+
+            <div class="badge-card">
+                <h3>Bronze</h3>
+                <img src="/static/images/bronze.png" alt="Bronze medal badge">
+                <p>Count: {{ student.bronze_medals }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAK & TEAM -->
+    <section class="badge-section">
+        <h2 class="section-label">Streak & Team Wins</h2>
+
+        <div class="badge-row">
+            <div class="badge-card">
+                <h3>Highest Streak</h3>
+                <img src="/static/images/streak.png" alt="Highest streak badge">
+                <p>Record: {{ student.best_streak }}</p>
+            </div>
+
+            <div class="badge-card">
+                <h3>Team Wins</h3>
+                <img src="/static/images/team_wins.png" alt="Team win badge">
+                <p>Count: {{ student.team_gold_wins }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTICIPATION -->
+    <section class="badge-section participation">
+        <h2 class="section-label">Participation Badges</h2>
+
+        <div class="badge-column">
+            {% for threshold in participation_badges %}
+                <div class="badge-wide">
+                    <img
+                        src="/static/images/{{ threshold }}.png"
+                        alt="Participation in {{ threshold }} games"
+                    >
+                    <p>Participation in {{ threshold }} games</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</main>
+
+{% include "footer.html" %}
+
+</body>
+</html>
