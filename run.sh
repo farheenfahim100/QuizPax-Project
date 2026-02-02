@@ -1,25 +1,6 @@
-if ! grep -q FLASK_RUN_PORT ".env" 2>/dev/null || ! [[ -d vcwk ]]; then
-    echo Run setup.sh first
-    exit 1
-fi
+#!/bin/bash
 
-
-app=$1
-
-if [[ -z $app ]]; then
-    app=project
-fi
-
-# activate the virtual environment for the lab
-source vcwk/bin/activate
-
-#run Flask 
-#echo Running Flask
-# needed python -m flask because flask alone has trouble with spaces in the directory path
-#FLASK_APP=$app python -m flask run
-
-
-# FOR DEPLOYMENT WITH GEVENT:
-# run via Python + SocketIO instead of flask run
-echo "Running $app.py in run.sh"
-python "$app".py
+exec gunicorn project:app \
+  --worker-class gevent \
+  --workers 1 \
+  --bind 0.0.0.0:$PORT
