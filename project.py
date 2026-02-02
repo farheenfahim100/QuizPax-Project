@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 
 
-app.config['MAIL_SUPPRESS_SEND'] = True
+app.config['MAIL_SUPPRESS_SEND'] = os.environ.get("MAIL_SUPPRESS_SEND", "true").lower() == "true"
 mail = Mail(app)
 app.config['MAIL_SERVER'] = 'localhost'
 app.config['MAIL_USE_TLS'] = False
@@ -43,7 +43,7 @@ socketio = SocketIO(app, async_mode="gevent", cors_allowed_origins="*")
 # , logger=True, engineio_logger=True
 #socketio = SocketIO(app, cors_allowed_origins="*") # used for k6
 print("ASYNC MODE:", socketio.async_mode)
-app.secret_key="is nothing secret"
+app.secret_key=os.environ.get("SECRET_KEY", "dev-secret-key")
 csrf = CSRFProtect(app)
 
 
@@ -81,7 +81,7 @@ CHAMPION_GOLD_THRESHOLD = 3   # how many first places must be awarded before cha
 db.init_app(app)
 
 # change this to False to avoid resetting the database every time this app is restarted
-resetdb = True
+resetdb = os.environ.get("FLASK_ENV") == "development"
 if resetdb:
   with app.app_context():
     # drop everything, create all the tables, then put some data into the tables
