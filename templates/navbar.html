@@ -1,0 +1,48 @@
+<nav id="navbar" aria-label="Main navigation bar">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <ul class="navbar-list" id="primary-nav">
+        <li><a class="navbar-brand" href="/">QuizPax</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li class="nav-item"><a href="/dashboard">My Dashboard</a></li>
+
+            {% if session.get('teacher_logged_in') %}
+                <li class="nav-item"><a href="/public_sets">Public Sets</a></li>
+            {% else %}
+                <li class="nav-item"><a href="/entercode">Play Game</a></li>
+            {% endif %}
+
+            <li class="nav-item"><a href="/logout">Logout</a></li>
+        {% else %}
+            <li class="nav-item"><a href="/login">Login</a></li>
+            <li class="nav-item"><a href="/registration">Register</a></li>
+        {% endif %}
+        <li class="nav-item"><a href="/help">Help</a></li>
+        <li class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" role="button" aria-controls="primary-nav" tabindex="0">☰</li>
+    </ul>
+</nav>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.querySelector(".nav-toggle");
+    const nav = document.querySelector(".navbar-list");
+
+    if (!toggle || !nav) return;
+
+    function toggleNav() {
+        const isOpen = nav.classList.toggle("open");
+        toggle.textContent = isOpen ? "✕" : "☰";
+        toggle.setAttribute("aria-expanded", isOpen);
+    };
+
+    toggle.addEventListener("click", toggleNav);
+
+    toggle.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggleNav();
+        }
+    });
+});
+</script>

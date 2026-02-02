@@ -1,0 +1,28 @@
+<footer class="site-footer">
+    <div class="footer-inner">
+
+        <div class="footer-brand">
+            <p class="footer-title">QuizPax</p>
+            <p class="footer-meta">
+                BSc (Hons) Computer Science Dissertation Project<br>
+                Farheen Fahim
+            </p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
+            <ul>
+                <li><a href="/">Home</a></li>
+               {% if current_user.is_authenticated %}
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/registration">Register</a></li>
+                {% endif %}
+                    <li><a href="/public_sets">Public Sets</a></li>
+                    <li><a href="/help">Help</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</footer>

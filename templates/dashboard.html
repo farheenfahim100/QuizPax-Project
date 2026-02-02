@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/static/js/gamemodal.js"></script>
+        <script src="/static/js/editfolder.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+
+        <title>Teacher Dashboard: QuizPax</title>
+    </head>
+    <body>
+    <div id="page-content">
+
+        {% include 'navbar.html' %}
+        <main id="main-content">
+            <section class="page-header">
+                <h1>Dashboard</h1>
+                <p class="page-subtitle">
+                    Welcome back, {{ current_user.name }}
+                </p>
+            </section>
+
+            <section class="dashboard-actions details">
+                <p class="section-label">Create a Live Game</p>
+                <div class="dashboard-card">
+                    {% if active_game %}
+                        <div role="alert" aria-live="assertive">
+                            <h2>Active game in progress</h2>
+                            <p>You currently have a live game running.</p>
+                            <br>
+                            <a href="/teacher_game?pin={{ active_game.game_pin }}"class="primary-btn">Rejoin Game</a>
+                        </div>
+                        <br>
+                    {% else %}
+                        <h2>Create a New Game</h2>
+                        <p>
+                            Select a Q&A set and game mode to start a live quiz.
+                        </p>
+                        <button class="primary-btn" id="create-game-btn">Create Game</button>
+                    {% endif %}
+                </div>
+                <br>
+
+            </section>
+            
+            <!-- FOLDERS -->
+            <section class="dashboard-folders">
+                <p class="section-label">Your Folders</p>
+                <p class="page-subtitle"> Your folders are listed below. Each folder can contain multiple Q&A sets. Click "View Q&A Sets" to view the sets within a specific folder. The option to add a new Folder is located at the bottom of the page.</p>
+                {% for folder in folderList %}
+                    <div class="dashboard-card folder-card" id="folder-card-{{ folder.id }}">
+                        <div class="folder-title">
+                            <h3>{{ folder.name }}</h3>
+                        </div>
+                        <input type="hidden" id="folder-name-{{ folder.id }}" value="{{ folder.name }}">
+
+                        <div class="action-row">
+
+                            <form action="/folderdetails" method="GET">
+                                <button class="secondary-btn view-btn" name="folderid" value="{{ folder.id }}">View Q&A Sets</button>
+                            </form>
+
+                            <button class="secondary-btn edit-folder-btn" value="{{ folder.id }}">Edit Folder Name</button>
+
+                            <form action="/deletefolder" method="POST" class ="delete-folder-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                <input type="hidden" name="folderid" value="{{ folder.id }}">
+                                <button class="secondary-btn delete-btn">Delete Folder</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+                <br>
+                <div class="dashboard-card">
+                    <!-- CREATE FOLDER -->
+                    <h3>Create New Folder</h3>
+                        <form action="/addfolder" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <label for="foldername"> New Folder Name </label>
+                            <input id="foldername" type="text" name="foldername" placeholder="e.g. Biology" required>
+                            <button class="secondary-btn" style="border: 2px solid var(--brown);">Add Folder</button>
+                        </form>
+                </div>
+                <br>
+            </section>
+        </main>
+        {% include 'footer.html' %} 
+    </div>
+    <!-- GAME CREATION POPUP (MODAL) -->
+
+    <div id="game-modal-overlay" class="modal-overlay"></div>
+        <div id="game-modal" class="modal" inert>
+
+            <div class="modal-header">
+                <h2>Create New Game</h2>
+                <button id="close-game-modal" class="close-btn" aria-label="Close game creation dialog">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- Choose Q&A Set -->
+                <fieldset>
+                <legend>Select a Q&A Set</legend>
+                    <div id="folder-set-list"></div>
+                </fieldset>
+                <br>
+
+                <!-- Choose Game Mode -->
+                <fieldset>
+                <legend>Select Game Mode</legend>
+                <div class="game-option">
+                    <input type="radio" id="mode-classic" name="gamemode" value="classic" checked>
+                    <label for="mode-classic">Classic Solo</label>
+                </div>
+
+                <div class="game-option">
+                    <input type="radio" id="mode-multi" name="gamemode" value="classic_multi">
+                    <label for="mode-multi">Classic Multiplayer</label>
+                </div>
+
+                <div class="game-option">
+                    <input type="radio" id="mode-bomb" name="gamemode" value="bomb">
+                    <label for="mode-bomb">Bomb Squad</label>
+                </div>
+                
+                </fieldset>
+                <br>
+
+                <!-- Time Limit -->
+                <label for="game-length">Game length in minutes</label>
+                <input type="number" id="game-length" min="1" max="10" value="1">
+                <br>
+            </div>
+
+            <div class="modal-footer">
+                <button id="game-create-submit" class="primary-btn" aria-label="Create Game">Create Game</button>
+            </div>
+        </div>
+    
+    </body>
+</html>

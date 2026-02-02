@@ -1,0 +1,784 @@
+
+:root {
+  /* Main surfaces */
+  --bg-main: #f6f7fb;
+  --bg-main-text: #1a1a1a;
+
+  --surface-card: #ffffff;
+  --surface-card-text: #1a1a1a;
+
+  /* Primary */
+  --primary-bg: #035CF8;
+  --primary-text: #ffffff;
+
+  /* Secondary */
+  --secondary-bg: #830AE6;
+  --secondary-text: #ffffff;
+
+  /* Accent */
+  --accent-bg: #1206F5;
+  --accent-text: #ffffff;
+
+  /* Alert / warning */
+  --alert-bg: #EE0FAA;
+  --alert-text: #000000;
+
+  /* Danger */
+  --danger-bg: #FD103F;
+  --danger-text: #000000;
+
+  /* Muted / neutral */
+  --muted-bg: #e6e6e6;
+  --muted-text: #444444;
+
+  --success-bg: #00D71F;
+  --success-text: #000000;
+
+  /* Focus */
+  --focus-ring: #1206F5;
+}
+
+
+/* =========================================================
+   RESET + BASE
+   ========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: "Inter", "Poppins", "Segoe UI", Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--bg-main-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   PAGE WRAPPER
+   ========================================================= */
+#content_wrapper {
+    width: calc(100% - 40px);  /* Always leave 20px gap on each side */
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    min-height: calc(100vh - 120px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+#content {
+    padding: 10px;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+h2, h3 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+#navbar {
+    display: flex;
+    justify-content: center;
+    background: #ffffff;
+    padding: 14px 0;
+    border-bottom: 1px solid #e0e0e0;
+    /* flex-wrap: wrap; */
+}
+
+#navbar .navbar-list{
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+
+#navbar a {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+#navbar a:hover, #navbar a:focus-visible {
+    background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.logo {
+    height: 40px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+a.btn-big {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  text-decoration: none;
+}
+
+button, a.btn-big,
+input[type="submit"] {
+  appearance: none;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: var(--primary-bg);
+  color: var(--primary-text);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+button:hover,
+button:focus-visible,
+input[type="submit"]:hover,
+input[type="submit"]:focus-visible {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+button:active,
+input[type="submit"]:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+button:disabled,
+input[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Button variants */
+
+.btn-view {
+  background: var(--secondary-bg);
+  color: var(--secondary-text);
+}
+
+.btn-edit {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.btn-delete, .btn-cancel, .dismiss-flag-btn {
+  background: var(--danger-bg);
+  color: var(--danger-text);
+}
+
+
+.btn-big {
+  width: 100%;
+  padding: 20px 34px;
+  font-size: 1.7rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 14px;
+}
+
+.flag-btn {
+    margin: 12px 0;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: var(--primary-bg);
+    color: var(--primary-text);
+}
+
+.flag-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
+/* goes with flag buttons */
+.alert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+/* =========================================================
+   CARD COMPONENTS
+   ========================================================= */
+.folder-card,
+.card,
+.question-card {
+    background: color-mix(in srgb, var(--primary-bg) 5%, white);
+    border: 1px solid color-mix(in srgb, var(--primary-bg) 25%, white);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.folder-title,
+.card-title {
+    color: var(--surface-card-text);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FORM STYLING
+   ========================================================= */
+.form-box,
+#new-folder-form,
+#new-set-form,
+.add-question-form,
+.edit-form {
+    background: color-mix(in srgb, var(--secondary-bg) 6%, white);
+    border: 1px solid color-mix(in srgb, var(--secondary-bg) 20%, white);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04); 
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--primary-bg) 25%, #ccc);
+    color: var(--bg-main-text);
+    background: #ffffff;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+
+#OTP-wrapper {
+    display: none;
+}
+
+/* =========================================================
+   FOLDER ACTION BUTTON ROW (FULLY RESPONSIVE)
+   ========================================================= */
+.folder-actions, .set-actions, .button-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.folder-actions form, .set-actions form {
+    flex: 1 1 150px;
+    display: flex;
+}
+
+.folder-actions button, .set-actions  button, .button-box button {
+    width: 100%;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.my_footer {
+    margin-top: 40px;
+    text-align: center;
+    padding: 12px;
+    background: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9rem;
+}
+
+/* =========================================================
+   STACK FOLDER ACTION BUTTONS ON SMALLER BROWSER WIDTH
+   ========================================================= */
+@media (max-width: 900px) {
+
+    .folder-actions {
+        flex-direction: column;      /* stack vertically */
+        align-items: stretch;        /* make them full width */
+    }
+
+    .folder-actions form {
+        flex: none;
+        width: 100%;                 /* full row width */
+    }
+
+    .folder-actions button {
+        width: 100%;                 /* full width button */
+    }
+}
+
+/* ================================================
+   FIX MOBILE CARD SPACING (remove big side gaps)
+   ================================================ */
+@media (max-width: 600px) {
+
+    #content_wrapper {
+        padding: 15px;
+    }
+
+    .folder-card,
+    .card,
+    .question-card {
+        margin: 10px 0;       /* reduce top/bottom spacing */
+        padding: 15px;        /* reduce inside padding */
+        width: 100%;          /* stay full width of wrapper */
+        border-radius: 10px;
+    }
+}
+
+.form-box form button {
+    margin-left: 30px; /* adjust value as needed */
+}
+
+.input-text {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+
+@media (max-width: 600px) {
+    #game-container {
+        margin: 20px auto;
+        padding: 10px;
+    }
+    #question-box {
+        padding: 18px;
+    }
+    #choices-box {
+        grid-template-columns: 1fr;
+    }
+    .choice-btn {
+        padding: 18px;
+        font-size: 1.3rem;
+    }
+}
+
+
+
+
+/* ============================
+   GAME CREATION MODAL (FADE IN/OUT)
+============================ */
+
+.modal-overlay,
+.modal {
+    display: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    transition: opacity 0.25s ease;
+    z-index: 900;
+}
+
+
+.modal-overlay.fade-out {
+    opacity: 0;
+}
+
+
+/* Prevent initial animation flash */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 480px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    z-index: 1000;
+
+    transition: opacity 0.25s ease;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-overlay.show {
+    display: block;
+}
+
+.modal.show {
+    display: block;
+    animation: popup 0.25s ease;
+}
+
+.modal.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes popup {
+    from { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+    to   { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 1.7rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-left: 20px;
+}
+
+
+/* ============================
+   COUNTDOWN BOX STYLING
+============================ */
+
+
+.countdown-box {
+    margin: 40px auto;             /* Center horizontally */
+    padding: 25px 20px;
+    width: 260px;                  /* Same fixed width for all */
+    text-align: center;            /* Center text */
+    background: #ffffff;
+    border: 4px solid #000000;     /* Black border */
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    color: #000000;                /* Black text */
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Number inside the countdown box */
+.countdown-number {
+    margin-top: 12px;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #000;                   /* Black number */
+}
+
+
+/* --- Play Game Page --- */
+
+.playgame-body {
+    color: var(--bg-main-text);
+    color: var(--text-main);
+    font-family: Arial, sans-serif;
+}
+
+#game-container {
+    min-height: 100vh;
+    width: 100%;
+    max-width: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: clamp(16px, 3vw, 40px);
+    text-align: center;
+}
+
+#score-header {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#teacher-status {
+    font-size: 16px;
+    color: var(--danger-bg);
+    margin-bottom: 10px;
+    height: 20px;
+}
+
+#question-box {
+    background: white;
+    padding: clamp(20px, 4vw, 50px);
+    border-radius: 18px;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+}
+
+#choices-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    flex: 1;
+    margin-top: 20px;
+}
+
+.choice-btn, .choice-button {
+    padding: clamp(18px, 4vw, 40px);
+
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 700;
+
+    border-radius: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: black
+    border: 3px solid var(--primary-bg);
+    min-height: 100px;
+}
+
+.choice-btn:hover, .choice-button:hover {
+    transform: scale(1.03);
+    border-color: #8aa9ff;
+}
+
+
+#feedback {
+    font-size: 20px;
+    font-weight: bold;
+    height: 30px;
+}
+
+
+.feedback-correct {
+    color: var(--success-bg);
+    color: var(--success-text);
+}
+
+.feedback-wrong {
+    color: var(--danger-bg);
+}
+
+
+/* Fullscreen feedback overlay */
+#feedback-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    text-align: center;
+    padding: 20px;
+}
+
+#feedback-overlay.correct {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
+#feedback-overlay.wrong {
+    background: var(--danger-bg);
+    color: var(--danger-text);
+}
+
+#gameover-banner {
+    width: 100%;
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
+
+
+
+.leaderboard-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 12px 16px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #dddddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+/* Top player */
+.player-card.leader {
+    background: linear-gradient(135deg, #ffd700, #fff5b5);
+    border-color: #e2b400;
+    color: #1a1a1a;
+    transform: scale(1.02);
+}
+
+/* Position number on left */
+.position-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    width: 40px;
+    text-align: center;
+}
+
+.player-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Middle info column */
+.player-info {
+    flex: 1;
+    margin: 0 12px;
+}
+
+
+.player-status {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    margin-top: 4px;
+}
+
+.player-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.player-score {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+
+#question-alerts {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.alert-item {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.choice-box {
+    background: #fafafa;
+    border: 2px solid #ddd;
+    padding: 6px 8px;
+    border-radius: 6px;
+    margin-top: 6px;
+}
+
+.correct-highlight {
+    border-color: var(--success-bg) !important;
+    background: rgb(203, 255, 225)
+}
+
+.show-answer-btn {
+    margin-top: 6px;
+    padding: 4px 8px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* */
+*:focus {
+  outline: 5px solid var(--focus-ring);
+  outline-offset: 3px !important;
+}

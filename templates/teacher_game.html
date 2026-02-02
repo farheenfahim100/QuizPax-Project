@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Live Game Dashboard: QuizPax</title>
+    <link rel="stylesheet" href="/static/css/newlayout.css">
+    <script src="/static/js/socket.io.min.js"></script>
+    <script src="/static/js/teacher_game.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+</head>
+<body class="dashboard-body">
+
+{% include 'navbar.html' %}
+<main class="dashboard-content" id="main-content">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <h1>Live Game Dashboard</h1>
+
+        <h2>Game PIN: <span id="game-pin">{{ game.game_pin }}</span></h2>
+
+        {% if qset %}
+            <p><strong>Question set:</strong> {{ qset.name }}</p>
+        {% endif %}
+    </header>
+
+    <!-- DASHBOARD GRID -->
+    <section class="dashboard-grid" aria-label="Live game dashboard">
+
+        <!-- LEFT COLUMN: LEADERBOARDS -->
+        <section class="dashboard-left" aria-label="Leaderboards">
+            {% if game.gamemode == "classic_multi" %}
+                <section class="card">
+                    <h3>Team Leaderboard</h3>
+                    <!-- Use the same grid class as solo -->
+                    <div id="team-leaderboard" class="leaderboard-grid" role="status" aria-live="polite"aria-atomic="true">
+                    {% for team_id, team_name, team_score in teams %}
+                        <div class="player-card team-card" data-team-id="{{ team_id }}">
+                            <div class="position-number"></div>
+
+                            <div class="player-main">
+                                <div class="top-row">
+                                    <span class="player-name">{{ team_name }}</span>
+                                    <span class="player-score team-score">
+                                        {{ team_score or 0 }}
+                                    </span>
+                                </div>
+
+                                <div class="team-members">
+                                    {{ team_members[team_id] | join(", ") }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+
+            <section class="card">
+                <h3>Individual Leaderboard</h3>
+                <div id="scoreboard-body" class="leaderboard-grid" role="status" aria-live="polite" aria-relevant="additions text" aria-atomic="false">
+                    {% for student, score, is_connected in players %}
+                        <div class="player-card {% if not is_connected %}player-disconnected{% endif %}" data-student-id="{{ student.id }}">
+
+                            <div class="position-number"></div>
+
+                            <div class="player-main">
+                                <div class="top-row">
+                                <span class="player-name">{{ student.name }}</span>
+                                <span class="player-score">{{ score }}</span>
+                                </div>
+                                <!-- <div class="player-status" role="status" aria-live="polite" aria-atomic="true">
+                                    {% if is_connected %}Online{% else %}Disconnected{% endif %}
+                                </div> -->
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+        </section>
+
+        <!-- RIGHT COLUMN: MONITORING TIME, STREAKS, ALERTS, FLAGS-->
+        <aside class="dashboard-right" aria-label="Live insights">
+            
+            <section class="card">
+                <h3>Time Remaining</h3>
+                <p id="timer-value" data-duration="{{ duration_seconds }}" role="status" aria-live="polite" aria-atomic="true">{{ duration_seconds }}</p>
+            </div>
+            <br>
+            <!-- Streak (top) -->
+            <section class="card" id="streak-widget" role="status" aria-live="polite" aria-atomic="true"> <!-- Top streak-->
+                <h3>Top Streak</h3>
+                <p class="streak-empty">No streaks of 6+ yet.</p>
+                
+                <div class="streak-details" style="display: none;">
+                    <p>
+                        <strong class="streak-player-name"></strong><br>
+                        <span class="streak-value"></span> correct answers in a row
+                    </p>
+                </div>
+            </section>
+            <br>
+            <!-- Question alerts widget -->
+            <section class="card">
+                <h3>Question Alerts</h3>
+                <p id="no-alerts">No problem questions yet.</p>
+                <ul id="question-alerts" aria-live="polite" aria-relevant="additions" aria-atomic="false"></ul>
+            </section>
+            <br>
+            <section class="card">
+                <h3>Flagged Questions</h3>
+                <p id="no-flagged">No questions flagged yet.</p>
+                <ul id="flagged-questions" aria-live="polite" aria-relevant="additions" aria-atomic="false"></ul>
+            </section>
+        </aside>
+
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/newlayout.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/editquestion.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+    <title>Questions in {{ qset.name }}: QuizPax</title>
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+<main id="main-content">
+    <section class="page-header">
+        <p class="page-kicker">You’re viewing questions in</p>
+        <em>
+            <h1>{{ qset.name }}</h1>
+        </em>
+    
+        <div class="breadcrumb">
+            <a href="/dashboard" class="breadcrumb-link">Dashboard</a>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+    
+            <a href="/folderdetails?folderid={{ folder.id }}" class="breadcrumb-link">{{ folder.name }}</a>
+            <span class="breadcrumb-sep" aria-hidden="true">›</span>
+    
+            <span class="breadcrumb-current">{{ qset.name }}</span>
+        </div>
+    </section>
+    
+    <section class="dashboard-folders">
+        <p class="section-label">Questions</p>
+        <p class="page-subtitle"> The questions in this Q&A set are listed below. The option to add a new Question is located at the bottom of the page. </p>
+        {% for q in questions %}
+        <div class="dashboard-card" id="question-card-{{ q.id }}">
+            <div class="question-header">
+                <span class="question-label">Question {{ loop.index }}</span>
+            </div>
+    
+            <div class="question-title">
+                <h3 class="question-text">{{ q.question }}</h3>
+            </div>
+            <p class="answer-text">
+                <strong>Answer:</strong> <span class="answer-value">{{ q.answer }}</span>
+            </p>
+    
+            <p class="fake-text">
+                <strong>Fake Answers:</strong>
+                <span class="fake-value">{{ q.fakeans1 }}, {{ q.fakeans2 }}, {{ q.fakeans3 }}</span>
+            </p>
+    
+            <input type="hidden" id="q-question-{{ q.id }}" value="{{ q.question }}">
+            <input type="hidden" id="q-answer-{{ q.id }}" value="{{ q.answer }}">
+            <input type="hidden" id="q-f1-{{ q.id }}" value="{{ q.fakeans1 }}">
+            <input type="hidden" id="q-f2-{{ q.id }}" value="{{ q.fakeans2 }}">
+            <input type="hidden" id="q-f3-{{ q.id }}" value="{{ q.fakeans3 }}">
+    
+            <!-- ACTION BUTTONS -->
+            <div class="action-row">
+    
+                <button class="secondary-btn edit-question-btn" value="{{ q.id }}">Edit Question</button>
+    
+                <form action="/deletequestion" method="POST" class="delete-question-form">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    
+                    <input type="hidden" name="qid" value="{{ q.id }}">
+                    <button class="secondary-btn delete-btn">Delete Question</button>
+                </form>
+    
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+        <!-- Add Question Form -->
+    <section class="dashboard-actions">
+        <div class="dashboard-card">
+            <h3>Add a new Question</h3>
+    
+            <form action="/addquestion" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <input type="hidden" name="setid" value="{{ qset.id }}">
+    
+                <label for="question">Question</label>
+                <input type="text" id="question" name="question" placeholder="Question" required>
+    
+                <label for="answer">Correct answer</label>
+                <input type="text" id="answer" name="answer" placeholder="Correct answer" required>
+    
+                <label for="fakeans1">Fake answer 1</label>
+                <input type="text" id="fakeans1" name="fakeans1" placeholder="Fake answer 1" required>
+    
+                <label for="fakeans2">Fake answer 2</label>
+                <input type="text" id="fakeans2" name="fakeans2" placeholder="Fake answer 2" required>
+    
+                <label for="fakeans3">Fake answer 3</label>
+                <input type="text" id="fakeans3" name="fakeans3" placeholder="Fake answer 3" required>
+    
+                <div class="action-row">
+                    <button class="secondary-btn" type="submit">Add Question</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    
+    
+    <!-- Back button -->
+    <div style="text-align:center; margin: 48px 0;">
+        <a href="/folderdetails?folderid={{ folder.id }}" class="primary-btn has-arrow">
+            <span class="arrow" aria-hidden="true">←</span> Back to Q&A Sets
+        </a>
+    </div>
+</main>
+
+
+{% include 'footer.html' %}
+
+</body>
+</html>

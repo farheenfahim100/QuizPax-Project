@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+
+        <title>Enter Game Code: QuizPax</title>
+    </head>
+    <body class="mid-background-full">
+        {% include 'navbar.html' %}
+        <main id="main-content">
+            <section class="page-header">
+                <p class="page-kicker">Welcome back</p>
+                <em><h1>{{ current_user.name }}</h1></em>
+                <p class="page-subtitle">Enter a game code to join a live quiz</p>
+            </section>
+
+            <section class="dashboard-actions">
+                <div class="form-box">
+                    <h3>Join a Game</h3>
+                    <form action="/entercode" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <label for="code">6-digit Game code</label>
+                        <input type="text" id="code" name="code" placeholder="e.g. 123456" required autofocus>
+
+                        <div class="action-row">
+                            <button type="submit" class="primary-btn">
+                                Join Game
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <br>
+            </section>
+        </main> 
+
+        {% include 'footer.html' %}
+    </body>
+</html>

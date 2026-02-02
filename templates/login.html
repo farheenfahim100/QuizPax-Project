@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src='/static/js/jquery-3.7.1.min.js'></script>
+        <!-- <script src='/static/js/reset_password.js' defer></script> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/css/newlayout.css" type="text/css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,700;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">    </head>
+        <title>Login: QuizPax</title>
+    </head>
+    <body>
+        {% include 'navbar.html' %} 
+        <main id="main-content">
+            <section class="page-header">
+                <h1>Login</h1>
+            </section>
+            <section class="page-body">
+                <div class="form-box" id="form-box">
+                    <form action="/login" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" autocomplete="email">
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" autocomplete="current-password">
+                        
+                        <button type="submit" class="primary-btn">Login</button>
+                    </form>
+                <br>
+                <a class="forgot-link" id="forgot-link" href="/reset-password">Forgotten Password?</a>
+            </div>
+            <br>
+            <br>
+            </section>
+        </main>
+        {% include 'footer.html' %} 
+    </body>
+</html>

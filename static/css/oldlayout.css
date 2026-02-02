@@ -1,0 +1,165 @@
+* {
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 7px;
+
+}
+
+#content_wrapper {
+    background-color: rgba(149, 149, 149, 0.8);
+    padding: 10px;
+    margin: 20px;
+    border: 5px solid rgba(195, 195, 195, 0.8);
+}
+
+
+#content {
+    background-color: rgba(206, 237, 255, 0.8);
+    font-size: 24px;
+    text-align: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: 400;
+    overflow: auto;
+
+}
+
+ul {
+    list-style-position: inside;
+    text-align: center;
+  }
+
+menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    line-height: 80px;
+}
+
+menu li {
+    display: inline;
+    /*margin: 0 30px 0 0; /* space between menu items */
+    margin-right: 10px; 
+}
+   
+menu {
+    /* horizontal menu bar (navbar) */
+    height: 80px;
+    background-color: #ffffff;
+    text-align: center;
+    line-height: 50px;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+menu a {
+    color: #000000;
+    text-decoration: none;
+}
+   
+menu a:hover {
+    background-color: rgba(149, 149, 149, 0.8);
+}
+
+
+
+form{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.my_footer{
+    height: 60px;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 97%;
+    background-color:#7a7a7a58;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding:10px;
+    margin: 20px;
+}
+
+
+.eventbox{
+    background-color: rgb(200, 246, 255);
+    color: rgb(229, 176, 255);
+    text-align: center;
+    padding:10px;
+    margin: 20px;
+    box-shadow: 5px 5px rgb(255, 188, 188);
+}
+
+.singleEvent{
+    color:rgb(255, 255, 255);
+}
+
+.logo{
+    height: 70px;
+    width: 110px;
+    padding: 5px 5px;
+    vertical-align: middle;
+}
+
+.barcode{
+    height:300;
+    width:500;
+}
+
+.homeLogo{
+    max-width: 100%;
+    width:250px;
+}
+
+.cancelled{
+    background-color: rgb(251, 251, 251);
+    color: red;
+    text-align: center;
+    padding:10px;
+    margin: 20px;
+    box-shadow: 5px 5px red;
+}
+
+.newEvent{
+    background-color: rgb(131, 160, 255);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding:10px;
+    margin: 20px;
+    box-shadow: 5px 5px rgb(238, 218, 255);
+} 
+
+button{
+    width: 110px;
+    height: 80px;
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #f9bafa;
+    padding: 10px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    color: blue;
+    text-align: center;
+    font-size: 24px;
+}
+
+input[type="submit"] {
+    width: 110px;
+    height: 80px;
+    display: block;
+    width: 100%;
+    border: none;
+    color: blue;
+    background-color: #f9bafa;
+    padding: 10px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: underline;
+    font-size: 24px;
+}
+
+h1{
+    text-decoration: underline;
+}
