@@ -271,22 +271,23 @@ def generate_otp(email,emailMsg):
     return "Email was not sent (@), please try again."
 
 
-
+def send_email_async(app, msg):
+  with app.app_context():
+    mail.send(msg)
 
 def send_email(recipient, body, subject_to_send):
   with app.app_context():
-    msg = Message(subject_to_send, sender=app.config['MAIL_USERNAME'], recipients=[recipient])
-    msg.body = body
     if ("@" not in recipient):
       return False
-    else:
-      try:
-        mail.send(msg)
-        print("Test email sent successfully to "+ recipient)
-        return True
-      except Exception as error:
-        print(f'Error sending email: {str(error)}')
-        return False
+    msg = Message(subject_to_send, sender=app.config['MAIL_USERNAME'], recipients=[recipient])
+    msg.body = body
+    try:
+      socketio.start_background_task(send_email_async, app, msg)
+      print("Test email sent successfully to "+ recipient)
+      return True
+    except Exception as error:
+      print(f'Error sending email: {str(error)}')
+      return False
   
 
 
