@@ -275,7 +275,7 @@ def generate_otp(email,emailMsg):
 
 def send_email(recipient, body, subject_to_send):
   with app.app_context():
-    msg = Message(subject_to_send, sender=f"{os.getlogin()}@dcs.warwick.ac.uk", recipients=[recipient])
+    msg = Message(subject_to_send, sender=app.MAIL_USERNAME, recipients=[recipient])
     msg.body = body
     if ("@" not in recipient):
       return False
